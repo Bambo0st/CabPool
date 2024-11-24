@@ -5,6 +5,8 @@ const bookingSchema = new mongoose.Schema({
     pickupLocation: { type: String, required: true },
     dropoffLocation: { type: String, required: true },
     rideDate: { type: Date, required: true },
+    startTimeWindow: { type: Date, required: true },  // Start of the pickup time window
+    endTimeWindow: { type: Date, required: true },    // End of the pickup time window
     availableSeats: { type: Number, required: true },
     passengers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],  // Passengers who have joined this booking
     status: { type: String, enum: ['open', 'closed'], default: 'open' },  // Whether the booking is still open for more passengers

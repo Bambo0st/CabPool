@@ -8,6 +8,9 @@ const requestSchema = new mongoose.Schema({
     status: { type: String, enum: ['pending', 'accepted', 'declined'], default: 'pending' },  // Status of the request
     createdAt: { type: Date, default: Date.now }  // Timestamp of when the request was created
 });
-
+requestSchema.pre('save', function (next) {
+    this.updatedAt = Date.now(); 
+    next(); // Gets stuck if next() isn't called.
+});
 const Request = mongoose.model('Request', requestSchema);
 export default Request;
