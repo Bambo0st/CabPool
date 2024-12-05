@@ -3,27 +3,29 @@ import User from '../models/user.model.js';
 
 const createBooking = async (req, res) => {
     try {
-        const { pickupLocation, dropoffLocation, rideDate, availableSeats, startTimeWindow, endTimeWindow } = req.body;
+        const { pickupLocation, dropoffLocation, startTime, endTime, availableSeats } = req.body;
 
-        if (new Date(rideDate) < new Date()) {
-            return res.status(400).json({ message: 'Ride date must be in the future' });
+        // Ensure startTime is in the future (compares both date and time)
+        if (new Date(startTime) < new Date()) {
+            return res.status(400).json({ message: 'Start time must be in the future' });
         }
 
+        // Ensure available seats is a positive number
         if (availableSeats <= 0) {
             return res.status(400).json({ message: 'Available seats must be a positive number' });
         }
 
-        if (new Date(startTimeWindow) >= new Date(endTimeWindow)) {
+        // Ensure start time is before end time
+        if (new Date(startTime) >= new Date(endTime)) {
             return res.status(400).json({ message: 'Start time must be before end time' });
         }
 
         const newBooking = new Booking({
             pickupLocation,
             dropoffLocation,
-            rideDate,
+            startTime,
+            endTime,
             availableSeats,
-            startTimeWindow,
-            endTimeWindow,
             createdBy: req.user._id
         });
 
@@ -35,7 +37,7 @@ const createBooking = async (req, res) => {
 };
 
 
-const getOpenAllBookings = async (req, res) => {
+const getAllOpenBookings = async (req, res) => {
     try {
         const bookings = await Booking.find({ status: 'open' }).populate('createdBy', 'name email');
         res.status(200).json(bookings);
@@ -60,8 +62,8 @@ const getBookingsByDateAndTime = async (req, res) => {
 
         const bookings = await Booking.find({
             rideDate: { $gte: normalizedRideDate, $lt: new Date(normalizedRideDate.getTime() + 24 * 60 * 60 * 1000) },  // Same day, ignore time
-            startTimeWindow: { $gte: startTimeWindowObj },  
-            endTimeWindow: { $lte: endTimeWindowObj }  
+            startTimeWindow: { $gte: startTimeWindowObj },
+            endTimeWindow: { $lte: endTimeWindowObj }
         }).populate('createdBy', 'name email');
 
         if (bookings.length === 0) {
@@ -85,4 +87,4 @@ const getUserBookings = async (req, res) => {
     }
 };
 
-export { createBooking, getOpenAllBookings, getUserBookings, getBookingsByDateAndTime };
+export { createBooking, getAllOpenBookings, getUserBookings, getBookingsByDateAndTime };

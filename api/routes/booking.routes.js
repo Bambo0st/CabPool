@@ -1,5 +1,5 @@
 import express from 'express';
-import { createBooking, getAllBookings, getUserBookings } from '../controllers/booking.controller.js';
+import { createBooking, getAllOpenBookings, getUserBookings } from '../controllers/booking.controller.js';
 import { authenticate } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/', authenticate, createBooking);
 
 // GET /api/bookings
-router.get('/', authenticate, getAllBookings);
+router.get('/', authenticate, getAllOpenBookings);
 
 // GET /api/bookings/user
 router.get('/user', authenticate, getUserBookings);
