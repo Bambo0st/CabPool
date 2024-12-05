@@ -1,7 +1,6 @@
 import Booking from '../models/booking.model.js';
 import User from '../models/user.model.js';
 
-// Controller to create a new booking
 const createBooking = async (req, res) => {
     try {
         const { pickupLocation, dropoffLocation, departureTime, arrivalTime, availableSeats } = req.body;
@@ -11,7 +10,6 @@ const createBooking = async (req, res) => {
             return res.status(400).json({ message: 'Departure time must be in the future' });
         }
 
-        // Ensure available seats is a positive number
         if (availableSeats <= 0) {
             return res.status(400).json({ message: 'Available seats must be a positive number' });
         }
@@ -27,7 +25,8 @@ const createBooking = async (req, res) => {
             departureTime,
             arrivalTime,
             availableSeats,
-            createdBy: req.user._id
+            createdBy: req.user._id,
+            passengers: [req.user._id] 
         });
 
         await newBooking.save();
@@ -37,7 +36,6 @@ const createBooking = async (req, res) => {
     }
 };
 
-// Controller to get all open bookings
 const getAllOpenBookings = async (req, res) => {
     try {
         const bookings = await Booking.find({ status: 'open' }).populate('createdBy', 'name email');
@@ -47,12 +45,10 @@ const getAllOpenBookings = async (req, res) => {
     }
 };
 
-// Controller to get bookings between a specific time range (based on departureTime)
 const getBookingsByDateAndTime = async (req, res) => {
     try {
         const { startTime, endTime } = req.query;
 
-        // Check if required query parameters are provided
         if (!startTime || !endTime) {
             return res.status(400).json({ message: 'Start time and end time are required.' });
         }
@@ -60,12 +56,10 @@ const getBookingsByDateAndTime = async (req, res) => {
         const startTimeObj = new Date(startTime);
         const endTimeObj = new Date(endTime);
 
-        // Ensure that start time is before end time
         if (startTimeObj >= endTimeObj) {
             return res.status(400).json({ message: 'Start time must be before end time' });
         }
 
-        // Find bookings where departureTime is within the specified time range
         const bookings = await Booking.find({
             departureTime: { $gte: startTimeObj, $lte: endTimeObj }
         })
@@ -81,7 +75,6 @@ const getBookingsByDateAndTime = async (req, res) => {
     }
 };
 
-// Controller to get all bookings of a specific user (created or joined)
 const getUserBookings = async (req, res) => {
     try {
         const userBookings = await Booking.find({
@@ -94,4 +87,40 @@ const getUserBookings = async (req, res) => {
     }
 };
 
-export { createBooking, getAllOpenBookings, getUserBookings, getBookingsByDateAndTime };
+const joinBooking = async (req, res) => {
+    try {
+        const { bookingId } = req.body;
+
+        const booking = await Booking.findById(bookingId);
+        if (!booking) {
+            return res.status(404).json({ message: 'Booking not found' });
+        }
+
+        if (booking.status === 'closed') {
+            return res.status(400).json({ message: 'This booking is closed and cannot be joined' });
+        }
+
+        // Ensure the user is not already a passenger
+        if (booking.passengers.includes(req.user._id)) {
+            return res.status(400).json({ message: 'You have already joined this booking' });
+        }
+
+        // Ensure there are available seats
+        if (booking.passengers.length >= booking.availableSeats) {
+            return res.status(400).json({ message: 'No available seats for this booking' });
+        }
+
+        booking.passengers.push(req.user._id);
+
+        booking.availableSeats -= 1;
+
+        await booking.save();
+
+        res.status(200).json({ message: 'You have successfully joined the booking', booking });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+export { createBooking, getAllOpenBookings, getUserBookings, getBookingsByDateAndTime,joinBooking };

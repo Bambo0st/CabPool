@@ -4,11 +4,9 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/user.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
 import cookieParser from 'cookie-parser';
-console.log('Current working directory:', process.cwd());
 
 dotenv.config();
-console.log(process.env.MONGO_URL)
-mongoose.connect(process.env.MONGO_URL).then(() => console.log("Connected to MongoDB"));
+mongoose.connect(process.env.MONGO_URL).then(() => console.log("Connected to MongoDB")).catch((err) => console.log("Error connecting to MongoDB:", err));
 
 const app = express();
 

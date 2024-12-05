@@ -27,7 +27,12 @@ const loginUser = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
-        res.cookie('access_token', token, { httpOnly: true });
+        res.cookie('access_token', token, {
+            httpOnly: true,
+            // secure: process.env.NODE_ENV === 'production',
+            // expires: new Date(Date.now() + 3600000), // 1 hour expiry
+            sameSite: 'Strict', // To prevent CSRF attacks
+        });
         res.status(200).json({ message: 'Logged in successfully', user: { id: user._id, name: user.name, email: user.email } });
     } catch (error) {
         res.status(500).json({ message: error.message });
