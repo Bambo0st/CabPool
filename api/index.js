@@ -17,9 +17,6 @@ app.use(cookieParser()); //this for storing jwt token
 
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log("Server listening on port 3000");
-})
 
 // Middleware
 
@@ -27,3 +24,16 @@ app.listen(PORT, () => {
 app.use('/api/users', userRoutes);
 app.use('/api/bookings', bookingRoutes);
 
+app.use((err, req, res, next) => {
+    const errorStatus = err.status || 500;
+    const errorMessage = err.message || "Something went wrong";
+    return res.status(errorStatus).json({
+        success: false,
+        status: err.status,
+        error: errorMessage
+    });
+});
+
+app.listen(PORT, () => {
+    console.log("Server listening on port 3000");
+})
