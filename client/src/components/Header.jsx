@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 import SignOutButton from './SignOutButton';
 
 const Header = () => {
   const { user } = useUserContext();
-  const navigate = useNavigate();
 
   return (
     <header className="bg-indigo-600 p-4 text-white">
@@ -18,6 +17,7 @@ const Header = () => {
                 <span>{user?.name[0]}</span>
               </div>
               <Link to="/profile" className="text-white">Profile</Link>
+              <Link to="/mytrips" className="text-white">My Trips</Link> {/* New My Trips Link */}
               <SignOutButton />
             </>
           ) : (

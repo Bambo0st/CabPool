@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.tab-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid transparent;
+}
+
+.tab-button:hover {
+    background-color: #4C51BF;
+    color: #FFFFFF;
+}
+
+.tab-button.active {
+    background-color: #4C51BF;
+    color: #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+}

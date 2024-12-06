@@ -48,7 +48,7 @@ const getAllOpenBookings = async (req, res) => {
 const getBookingsByDateAndTime = async (req, res) => {
     try {
         const { startTime, endTime, pickupLocation, dropoffLocation } = req.query;
-
+        console.log(pickupLocation, startTime, endTime)
         if (!startTime || !endTime) {
             return res.status(400).json({ message: 'Start time and end time are required.' });
         }

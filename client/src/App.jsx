@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import { UserProvider } from './context/UserContext'; // Import UserProvider
 import SignInPage from './components/SignInPage.jsx';
 import SignUpPage from './components/SignUpPage.jsx';
-import BookingPage from './components/BookingPage.jsx';
 // import ProfilePage from './components/ProfilePage.jsx';
 import Homepage from './components/Homepage.jsx';
 import Header from './components/Header.jsx';
@@ -19,7 +18,7 @@ const App = () => {
         <Route path="/signup" element={<SignUpPage />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/bookings" element={<BookingPage />} />
+          {/* <Route path="/bookings" element={<BookingPage />} /> */}
           {/* <Route path="/profile" element={<ProfilePage />} /> */}
         </Route>
       </Routes>
