@@ -1,29 +1,28 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { UserProvider } from './context/UserContext';
+import { Route, Routes } from 'react-router-dom';
+import { UserProvider } from './context/UserContext'; // Import UserProvider
 import SignInPage from './components/SignInPage.jsx';
 import SignUpPage from './components/SignUpPage.jsx';
 import BookingPage from './components/BookingPage.jsx';
-// import DashboardPage from './components/DashboardPage.jsx'; 
-import Navbar from './components/Navbar.jsx';
-import PrivateRoute from './components/PrivateRoute.jsx';
+// import ProfilePage from './components/ProfilePage.jsx';
+import Homepage from './components/Homepage.jsx';
+import Header from './components/Header.jsx';
+import PrivateRoute from './components/PrivateRoute.jsx'; // PrivateRoute component
 
 const App = () => {
   return (
     <UserProvider>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/signin" element={<SignInPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
 
-          {/* Group all private routes inside a PrivateRoute wrapper */}
-          <Route element={<PrivateRoute />}>
-            <Route path="/bookings" element={<BookingPage />} />
-            {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
-          </Route>
-        </Routes>
-      </Router>
+        <Route element={<PrivateRoute />}>
+          <Route path="/bookings" element={<BookingPage />} />
+          {/* <Route path="/profile" element={<ProfilePage />} /> */}
+        </Route>
+      </Routes>
     </UserProvider>
   );
 };

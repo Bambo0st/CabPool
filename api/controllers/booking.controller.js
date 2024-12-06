@@ -26,7 +26,7 @@ const createBooking = async (req, res) => {
             arrivalTime,
             availableSeats,
             createdBy: req.user._id,
-            passengers: [req.user._id] 
+            passengers: [req.user._id]
         });
 
         await newBooking.save();
@@ -47,7 +47,7 @@ const getAllOpenBookings = async (req, res) => {
 
 const getBookingsByDateAndTime = async (req, res) => {
     try {
-        const { startTime, endTime } = req.query;
+        const { startTime, endTime, pickupLocation, dropoffLocation } = req.query;
 
         if (!startTime || !endTime) {
             return res.status(400).json({ message: 'Start time and end time are required.' });
@@ -60,13 +60,23 @@ const getBookingsByDateAndTime = async (req, res) => {
             return res.status(400).json({ message: 'Start time must be before end time' });
         }
 
-        const bookings = await Booking.find({
+        const query = {
             departureTime: { $gte: startTimeObj, $lte: endTimeObj }
-        })
-        .populate('createdBy', 'name email');
+        };
+
+        if (pickupLocation) {
+            query.pickupLocation = { $regex: pickupLocation, $options: 'i' }; // Case-insensitive matching
+        }
+
+        if (dropoffLocation) {
+            query.dropoffLocation = { $regex: dropoffLocation, $options: 'i' }; // Case-insensitive matching
+        }
+
+        const bookings = await Booking.find(query)
+            .populate('createdBy', 'name email');
 
         if (bookings.length === 0) {
-            return res.status(404).json({ message: 'No bookings found for the given time range.' });
+            return res.status(404).json({ message: 'No bookings found for the given criteria.' });
         }
 
         res.status(200).json(bookings);
@@ -75,12 +85,13 @@ const getBookingsByDateAndTime = async (req, res) => {
     }
 };
 
+
 const getUserBookings = async (req, res) => {
     try {
         const userBookings = await Booking.find({
             $or: [{ createdBy: req.user._id }, { passengers: req.user._id }]
         })
-        .populate('createdBy', 'name email');
+            .populate('createdBy', 'name email');
         res.status(200).json(userBookings);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -123,4 +134,4 @@ const joinBooking = async (req, res) => {
 };
 
 
-export { createBooking, getAllOpenBookings, getUserBookings, getBookingsByDateAndTime,joinBooking };
+export { createBooking, getAllOpenBookings, getUserBookings, getBookingsByDateAndTime, joinBooking };

@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../context/UserContext';
 
 const SignUpPage = () => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
+    const { setUser } = useUserContext();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setSuccess('');
+        setLoading(true);
 
-        // Validate password match
         if (password !== confirmPassword) {
             setError("Passwords don't match.");
+            setLoading(false);
             return;
         }
 
@@ -24,16 +31,38 @@ const SignUpPage = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ name, email, password }),
             });
 
             if (response.ok) {
+                const data = await response.json();
+
                 setSuccess('Account created successfully. You can now log in.');
+
+                const loginResponse = await fetch('/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                if (loginResponse.ok) {
+                    const loginData = await loginResponse.json();
+                    setUser(loginData.user);
+                    navigate('/bookings');
+                } else {
+                    setError('Error during auto login after sign up.');
+                }
+
             } else {
-                setError('Error occurred during registration.');
+                const errorData = await response.json();
+                setError(errorData.message || 'Error occurred during registration. Please try again.');
             }
         } catch (err) {
-            setError('Error occurred during registration.');
+            setError('Error occurred during registration. Please check your network and try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -42,6 +71,19 @@ const SignUpPage = () => {
             <div className="bg-white p-8 rounded-lg shadow-lg w-96">
                 <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">Sign Up</h2>
                 <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-600">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="Enter your full name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
                         <input
@@ -86,9 +128,10 @@ const SignUpPage = () => {
 
                     <button
                         type="submit"
-                        className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        disabled={loading} // Disable button while loading
+                        className={`w-full py-3 ${loading ? 'bg-indigo-300' : 'bg-indigo-600'} text-white font-semibold rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2`}
                     >
-                        Sign Up
+                        {loading ? 'Signing Up...' : 'Sign Up'} {/* Change text based on loading state */}
                     </button>
                 </form>
 

@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import { useUserContext } from '../context/UserContext'; // Import UserContext to update user state
 
 const SignInPage = () => {
-  const { setUser } = useUserContext(); 
+  const { user, setUser } = useUserContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/'); 
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,16 +33,14 @@ const SignInPage = () => {
         credentials: 'include', // Include cookies in the request
       });
 
-      // If the response is successful, store JWT token and user data
       if (response.ok) {
-        const data = await response.json(); // Assuming backend returns { user }
+        const data = await response.json();
         const { user } = data;
 
-        // Set user data in UserContext
         setUser(user);
 
         setSuccess('Login Successful!');
-        // Redirect or navigate to a different page (e.g., dashboard)
+        navigate('/'); 
       } else {
         setError('Invalid credentials. Please try again.');
       }
