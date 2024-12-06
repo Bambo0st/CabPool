@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 const AddBooking = () => {
     const [pickupLocation, setPickupLocation] = useState('');
     const [dropoffLocation, setDropoffLocation] = useState('');
-    const [startTime, setStartTime] = useState('');
-    const [endTime, setEndTime] = useState('');
+    const [departureTime, setDepartureTime] = useState('');
+    const [arrivalTime, setArrivalTime] = useState('');
     const [availableSeats, setAvailableSeats] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -14,9 +14,9 @@ const AddBooking = () => {
         setError('');
         setSuccess('');
 
-        const newBooking = { pickupLocation, dropoffLocation, startTime, endTime, availableSeats };
+        const newBooking = { pickupLocation, dropoffLocation, departureTime, arrivalTime, availableSeats };
 
-        if (!pickupLocation || !dropoffLocation || !startTime || !endTime || !availableSeats) {
+        if (!pickupLocation || !dropoffLocation || !departureTime || !arrivalTime || !availableSeats) {
             setError('Please fill in all fields');
             return;
         }
@@ -68,21 +68,21 @@ const AddBooking = () => {
 
                 <div className="mb-4 flex gap-4">
                     <div className="w-1/2">
-                        <label className="block text-sm text-gray-600">Start Time</label>
+                        <label className="block text-sm text-gray-600">Departure Time</label>
                         <input
                             type="datetime-local"
                             className="mt-2 p-3 w-full border border-gray-300 rounded-md"
-                            value={startTime}
-                            onChange={(e) => setStartTime(e.target.value)}
+                            value={departureTime}
+                            onChange={(e) => setDepartureTime(e.target.value)}
                         />
                     </div>
                     <div className="w-1/2">
-                        <label className="block text-sm text-gray-600">End Time</label>
+                        <label className="block text-sm text-gray-600">Arrival Time</label>
                         <input
                             type="datetime-local"
                             className="mt-2 p-3 w-full border border-gray-300 rounded-md"
-                            value={endTime}
-                            onChange={(e) => setEndTime(e.target.value)}
+                            value={arrivalTime}
+                            onChange={(e) => setArrivalTime(e.target.value)}
                         />
                     </div>
                 </div>
