@@ -50,7 +50,7 @@ const SignUpPage = () => {
                 if (loginResponse.ok) {
                     const loginData = await loginResponse.json();
                     setUser(loginData.user);
-                    navigate('/bookings');
+                    navigate('/');
                 } else {
                     setError('Error during auto login after sign up.');
                 }

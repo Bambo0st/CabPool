@@ -17,7 +17,7 @@ const Header = () => {
                 <span>{user?.name[0]}</span>
               </div>
               <Link to="/profile" className="text-white">Profile</Link>
-              <Link to="/mytrips" className="text-white">My Trips</Link> {/* New My Trips Link */}
+              <Link to="/my-trips" className="text-white">My Trips</Link>
               <SignOutButton />
             </>
           ) : (

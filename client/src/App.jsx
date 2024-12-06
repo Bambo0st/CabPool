@@ -4,7 +4,8 @@ import { UserProvider } from './context/UserContext'; // Import UserProvider
 import SignInPage from './components/SignInPage.jsx';
 import SignUpPage from './components/SignUpPage.jsx';
 // import ProfilePage from './components/ProfilePage.jsx';
-import Homepage from './components/Homepage.jsx';
+import Homepage from './components/homepage.jsx';
+import MyTrips from './components/MyTrips.jsx';
 import Header from './components/Header.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx'; // PrivateRoute component
 
@@ -18,8 +19,10 @@ const App = () => {
         <Route path="/signup" element={<SignUpPage />} />
 
         <Route element={<PrivateRoute />}>
+          { }
           {/* <Route path="/bookings" element={<BookingPage />} /> */}
           {/* <Route path="/profile" element={<ProfilePage />} /> */}
+          <Route path="/my-trips" element={<MyTrips />} />
         </Route>
       </Routes>
     </UserProvider>

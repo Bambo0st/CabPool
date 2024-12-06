@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AddBooking = () => {
+const AddBooking = ({ handleBookingCreated }) => {
     const [pickupLocation, setPickupLocation] = useState('');
     const [dropoffLocation, setDropoffLocation] = useState('');
     const [departureTime, setDepartureTime] = useState('');
@@ -8,16 +8,25 @@ const AddBooking = () => {
     const [availableSeats, setAvailableSeats] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setSuccess('');
+        setLoading(true);
 
-        const newBooking = { pickupLocation, dropoffLocation, departureTime, arrivalTime, availableSeats };
+        const newBooking = {
+            pickupLocation,
+            dropoffLocation,
+            departureTime: new Date(departureTime),
+            arrivalTime: new Date(arrivalTime),
+            availableSeats
+        };
 
         if (!pickupLocation || !dropoffLocation || !departureTime || !arrivalTime || !availableSeats) {
             setError('Please fill in all fields');
+            setLoading(false);
             return;
         }
 
@@ -30,13 +39,17 @@ const AddBooking = () => {
             });
 
             if (response.ok) {
-                setSuccess('Booking created successfully');
+                const res = await response.json();
+                handleBookingCreated(res.booking, 'success', 'Booking created successfully');
             } else {
                 const data = await response.json();
+                handleBookingCreated(null, 'fail', data.message);
                 setError(data.message || 'Error creating booking');
             }
         } catch (err) {
             setError('Error creating booking. Please try again later.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -100,13 +113,11 @@ const AddBooking = () => {
 
                 <button
                     type="submit"
-                    className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-md mt-4 hover:bg-indigo-700"
+                    className={`w-full py-3 bg-indigo-600 text-white font-semibold rounded-md mt-4 hover:bg-indigo-700 ${loading ? 'bg-indigo-300 cursor-not-allowed' : ''}`}
+                    disabled={loading}
                 >
-                    Create Booking
+                    {loading ? 'Creating Booking...' : 'Create Booking'}
                 </button>
-
-                {error && <p className="text-red-500 mt-4">{error}</p>}
-                {success && <p className="text-green-500 mt-4">{success}</p>}
             </form>
         </div>
     );
