@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.5'
 
 services:
   api:
@@ -6,8 +6,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGO_URL=${MONGO_URL}
-      - JWT_SECRET=${JWT_SECRET}
+      - MONGO_URL=mongodb+srv://adithya:adithya123@cabpoolcluster.2vzp6.mongodb.net/
+      - JWT_SECRET=THIS IS THE SECRET
     depends_on:
       - mongodb
     networks:
