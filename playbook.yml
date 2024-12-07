@@ -12,7 +12,7 @@
     - name: Copy docker-compose.yml to remote server
       copy:
         src: ./docker-compose.yml
-        dest: ./home/adithya/cabpool/docker-compose.yml
+        dest: ./home/user1/docker-compose.yml
 
     # - name: Pull Docker images with Docker Compose
     #   command: docker-compose -f docker-compose.yml pull
