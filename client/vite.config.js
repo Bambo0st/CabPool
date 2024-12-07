@@ -1,13 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-// https://vite.dev/config/
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   server: {
+    port: 5173, // Frontend port
     proxy: {
       '/api': {
-        target: 'http://api:3000', // Use Docker service name
+        target: process.env.VITE_API_URL || 'http://localhost:3000', // Fallback to localhost if not set
         changeOrigin: true,
         secure: false,
       },
