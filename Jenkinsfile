@@ -47,11 +47,11 @@ pipeline {
             steps {
                 dir('backend')
                 {
-                    sh "docker build -t Bambo0st/backend ."
+                    sh "docker build -t bambo0st/backend ."
                 }
                 dir('frontend') 
                 {
-                    sh "docker build -t Bambo0st/frontend ."
+                    sh "docker build -t bambo0st/frontend ."
                 }
             }
         }
@@ -60,8 +60,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', 'DockerHubCred') {
-                        sh 'docker push Bambo0st/backend'
-                        sh 'docker push Bambo0st/frontend'
+                        sh 'docker push bambo0st/backend'
+                        sh 'docker push bambo0st/frontend'
                     }
                 }
             }
