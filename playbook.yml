@@ -1,6 +1,6 @@
 ---
 - name: Deploy Docker Containers with Docker Compose
-  hosts: all
+  hosts: local
   vars:
     ansible_python_interpreter: /usr/bin/python3.8
   tasks:
