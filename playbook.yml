@@ -11,8 +11,8 @@
 
     - name: Copy docker-compose.yml to remote server
       copy:
-        src: ./docker-compose.yml
-        dest: docker-compose.yml
+        src: ./home/adithya/docker-compose.yml
+        dest: ./home/adithya/docker-compose.yml
 
     # - name: Pull Docker images with Docker Compose
     #   command: docker-compose -f docker-compose.yml pull
