@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Build the production-ready static files
-# RUN npm run build
+RUN npm run build
 
 # Expose the frontend port
 EXPOSE 5173

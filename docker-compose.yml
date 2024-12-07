@@ -1,8 +1,8 @@
-# version: '3.5'
+version: '3.8'
 
 services:
   api:
-    image: Bambo0st/backend:latest
+    image: bambo0st/backend:latest
     ports:
       - "3000:3000"
     environment:
@@ -14,7 +14,7 @@ services:
       - cab-pool-network
 
   client:
-    image: Bambo0st/frontend:latest
+    image: bambo0st/frontend:latest
     ports:
       - "5173:5173"
     networks:
@@ -24,7 +24,7 @@ services:
     image: mongo:latest
     container_name: mongodb
     ports:
-      - "23017:23017"
+      - "23017:27017"
     networks:
       - cab-pool-network
 
