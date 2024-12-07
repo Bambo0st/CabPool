@@ -3,7 +3,6 @@
   hosts: localhosts
   become: true
   tasks:
-
     - name: Ensure Docker Compose is installed
       package:
         name: docker-compose
