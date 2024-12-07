@@ -1,7 +1,7 @@
 ---
 - name: Deploy Docker Containers with Docker Compose
   hosts: localhosts
-  become: yes
+  become: true
   tasks:
 
     - name: Ensure /home/adithya/cabpool directory exists
