@@ -5,7 +5,7 @@ pipeline {
         stage('Git Clone') {
             steps {
                 script {
-                    sh 'git clone https://github.com/username/repository.git'
+                    sh 'git clone https://github.com/Bambo0st/CabPool.git'
                 }
             }
         }
