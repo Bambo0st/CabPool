@@ -8,13 +8,13 @@
         name: docker-compose
         state: present
 
-    - name: Copy docker-compose.yml to remote server
-      copy:
-        src: ./docker-compose.yml
-        dest: docker-compose.yml
+    # - name: Copy docker-compose.yml to remote server
+    #   copy:
+    #     src: ./docker-compose.yml
+    #     dest: docker-compose.yml
 
-    - name: Pull Docker images with Docker Compose
-      command: docker-compose -f docker-compose.yml pull
+    # - name: Pull Docker images with Docker Compose
+    #   command: docker-compose -f docker-compose.yml pull
 
-    - name: Start the containers using Docker Compose
-      command: docker-compose -f docker-compose.yml up -d
+    # - name: Start the containers using Docker Compose
+    #   command: docker-compose -f docker-compose.yml up -d
