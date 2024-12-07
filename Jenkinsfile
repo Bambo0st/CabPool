@@ -83,7 +83,7 @@ pipeline {
                     credentialsId: 'localhost',
                     installation: 'Ansible',
                     inventory: 'inventory',
-                    playbook: 'deploy.yml'
+                    playbook: 'playbook.yml'
                 )
             }
         }
