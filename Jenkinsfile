@@ -12,15 +12,15 @@ pipeline {
 
     stages {
         
-        stage('Stage 1: Pull MongoDB') {
-            steps {
-                script {
-                    docker.withRegistry('', 'DockerHubCred') {
-                        docker.image("${mongoImage}").pull()
-                    }
-                }
-            }
-        }
+        // stage('Stage 1: Pull MongoDB') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('', 'DockerHubCred') {
+        //                 docker.image("${mongoImage}").pull()
+        //             }
+        //         }
+        //     }
+        // }
         
         stage('Stage 2: Git Clone') {
             steps {
@@ -85,7 +85,7 @@ pipeline {
                     credentialsId: 'localhost',
                     installation: 'Ansible',
                     inventory: 'inventory',
-                    playbook: 'deploy.yml'
+                    playbook: 'playbook.yml'
                 )
             }
         }
