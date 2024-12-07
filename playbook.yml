@@ -4,9 +4,9 @@
   become: yes
   tasks:
 
-    - name: Ensure /opt/cabpool directory exists
+    - name: Ensure /home/adithya/cabpool directory exists
       file:
-        path: /opt/cabpool
+        path: /home/adithya/cabpool
         state: directory
         mode: '0755'
 
@@ -18,10 +18,10 @@
     - name: Copy docker-compose.yml to remote server
       copy:
         src: ./docker-compose.yml
-        dest: /opt/cabpool/docker-compose.yml
+        dest: /home/adithya/cabpool/docker-compose.yml
 
     - name: Pull Docker images with Docker Compose
-      command: docker-compose -f /opt/cabpool/docker-compose.yml pull
+      command: docker-compose -f /home/adithya/cabpool/docker-compose.yml pull
 
     - name: Start the containers using Docker Compose
-      command: docker-compose -f /opt/cabpool/docker-compose.yml up -d
+      command: docker-compose -f /home/adithya/cabpool/docker-compose.yml up -d
