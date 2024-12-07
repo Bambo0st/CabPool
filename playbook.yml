@@ -1,6 +1,6 @@
 ---
 - name: Deploy Docker Containers with Docker Compose
-  hosts: localhosts
+  hosts: localhost
   become: true
   tasks:
     - name: Ensure Docker Compose is installed

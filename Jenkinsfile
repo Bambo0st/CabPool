@@ -76,17 +76,13 @@ pipeline {
             }
         }
 
-        stage('Stage 6: Ansible Deployment') {
+        stage('Stage 7: Deploy with Ansible') {
             steps {
                 ansiblePlaybook(
-                    becomeUser: null,
-                    colorized: true,
-                    credentialsId: 'localhost',
-                    disableHostKeyChecking: true,
-                    installation: 'Ansible',
                     inventory: 'inventory',
                     playbook: 'playbook.yml',
-                    sudoUser: null
+                    credentialsId: 'localhost',
+                    colorized: true
                 )
             }
         }
