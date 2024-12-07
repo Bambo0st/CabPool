@@ -11,6 +11,6 @@ router.get('/', getAllOpenBookings);
 router.get('/user', authenticate, getUserBookings);
 
 router.get('/filter', getBookingsByDateAndTime);
-router.get('/join', authenticate, joinBooking);
+router.patch('/join', authenticate, joinBooking);
 
 export default router;

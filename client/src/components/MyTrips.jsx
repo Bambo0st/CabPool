@@ -121,9 +121,15 @@ const MyTrips = () => {
 
                             <h4 className="text-lg font-semibold mt-4">Passengers:</h4>
                             <ul>
-                                {selectedTrip.passengers.map((passenger) => (
-                                    <li key={passenger._id} className="text-sm text-gray-600">{passenger.name} ({passenger.email})</li>
-                                ))}
+                                {selectedTrip.passengers.length > 0 ? (
+                                    selectedTrip.passengers.map((passenger) => (
+                                        <li key={passenger._id} className="text-sm text-gray-600">
+                                            {passenger.name} ({passenger.email})
+                                        </li>
+                                    ))
+                                ) : (
+                                    <p className="text-sm text-gray-600">No passengers joined yet.</p>
+                                )}
                             </ul>
 
                             <div className="mt-4 flex justify-between">

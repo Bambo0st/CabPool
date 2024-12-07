@@ -7,13 +7,11 @@ const AddBooking = ({ handleBookingCreated }) => {
     const [arrivalTime, setArrivalTime] = useState('');
     const [availableSeats, setAvailableSeats] = useState('');
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        setSuccess('');
         setLoading(true);
 
         const newBooking = {
@@ -21,7 +19,7 @@ const AddBooking = ({ handleBookingCreated }) => {
             dropoffLocation,
             departureTime: new Date(departureTime),
             arrivalTime: new Date(arrivalTime),
-            availableSeats
+            availableSeats,
         };
 
         if (!pickupLocation || !dropoffLocation || !departureTime || !arrivalTime || !availableSeats) {
@@ -40,6 +38,7 @@ const AddBooking = ({ handleBookingCreated }) => {
 
             if (response.ok) {
                 const res = await response.json();
+                setError(''); // Clear the error state on success
                 handleBookingCreated(res.booking, 'success', 'Booking created successfully');
             } else {
                 const data = await response.json();
@@ -113,11 +112,13 @@ const AddBooking = ({ handleBookingCreated }) => {
 
                 <button
                     type="submit"
-                    className={`w-full py-3 bg-indigo-600 text-white font-semibold rounded-md mt-4 hover:bg-indigo-700 ${loading ? 'bg-indigo-300 cursor-not-allowed' : ''}`}
+                    className={`w-full py-3 bg-indigo-600 text-white font-semibold rounded-md mt-4 hover:bg-indigo-700 ${loading ? 'bg-indigo-300 cursor-not-allowed' : ''
+                        }`}
                     disabled={loading}
                 >
                     {loading ? 'Creating Booking...' : 'Create Booking'}
                 </button>
+
             </form>
         </div>
     );

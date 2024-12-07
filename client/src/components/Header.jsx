@@ -16,7 +16,7 @@ const Header = () => {
               <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
                 <span>{user?.name[0]}</span>
               </div>
-              <Link to="/profile" className="text-white">Profile</Link>
+              <Link to="/" className="text-white">Profile</Link>
               <Link to="/my-trips" className="text-white">My Trips</Link>
               <SignOutButton />
             </>

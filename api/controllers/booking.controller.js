@@ -91,17 +91,20 @@ const getUserBookings = async (req, res) => {
         const userBookings = await Booking.find({
             $or: [{ createdBy: req.user._id }, { passengers: req.user._id }]
         })
-            .populate('createdBy', 'name email');
+            .populate('createdBy', 'name email') // Populate the creator details
+            .populate('passengers', 'name email'); // Populate the passenger details
+
         res.status(200).json(userBookings);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
+
 const joinBooking = async (req, res) => {
     try {
         const { bookingId } = req.body;
-
+        // console.log("inside join booking backend" + bookingId)
         const booking = await Booking.findById(bookingId);
         if (!booking) {
             return res.status(404).json({ message: 'Booking not found' });
@@ -117,7 +120,7 @@ const joinBooking = async (req, res) => {
         }
 
         // Ensure there are available seats
-        if (booking.passengers.length >= booking.availableSeats) {
+        if (booking.passengers.length > booking.availableSeats) {
             return res.status(400).json({ message: 'No available seats for this booking' });
         }
 

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
 const SearchRide = ({ handleSearch, error }) => {
@@ -6,13 +5,22 @@ const SearchRide = ({ handleSearch, error }) => {
     const [dropoffLocation, setDropoffLocation] = useState('');
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
+    const [formError, setFormError] = useState('');
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        // Ensure that all inputs have been filled before calling the search function
+
         if (!pickupLocation || !dropoffLocation || !startTime || !endTime) {
+            setFormError('Please fill in all fields.');
             return;
         }
+
+        if (new Date(startTime) >= new Date(endTime)) {
+            setFormError('Start time must be before end time.');
+            return;
+        }
+
+        setFormError('');
         handleSearch(pickupLocation, dropoffLocation, startTime, endTime);
     };
 
@@ -70,6 +78,7 @@ const SearchRide = ({ handleSearch, error }) => {
                     Search
                 </button>
 
+                {formError && <p className="text-red-500 mt-4">{formError}</p>}
                 {error && <p className="text-red-500 mt-4">{error}</p>}
             </form>
         </div>

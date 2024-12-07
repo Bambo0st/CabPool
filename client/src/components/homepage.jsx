@@ -44,24 +44,32 @@ const Homepage = () => {
         }
     };
 
-    const handleJoinBooking = (bookingId) => {
-        navigate(`/bookings/join/${bookingId}`);
+    const updateBookingSeats = (bookingId) => { //when join a booking
+        setBookings((prevBookings) =>
+            prevBookings.map((booking) =>
+                booking._id === bookingId
+                    ? { ...booking, availableSeats: booking.availableSeats - 1 }
+                    : booking
+            )
+        );
     };
 
     const handleBookingCreated = (booking, status, message = '') => {
         if (status === 'success') {
             setSuccess(message);
+            setError('');
             setCreatedBooking(booking);
         } else {
+            setSuccess('');
             setError(message);
         }
     };
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
-        setError(''); 
-        setSuccess(''); 
-        setCreatedBooking(null);  
+        setError('');
+        setSuccess('');
+        setCreatedBooking(null);
     };
 
     return (
@@ -90,7 +98,7 @@ const Homepage = () => {
                 {activeTab === 'search' && (
                     <div className="flex gap-12">
                         <SearchRide handleSearch={handleSearch} />
-                        <Bookings bookings={bookings} handleJoinBooking={handleJoinBooking} />
+                        <Bookings bookings={bookings} updateBookingSeats={updateBookingSeats} />
                     </div>
                 )}
 
@@ -98,7 +106,7 @@ const Homepage = () => {
                     <div className="flex gap-12">
                         <AddBooking handleBookingCreated={handleBookingCreated} />
                         <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
-                            {!error && (
+                            {success && (
                                 <div className="text-green-500">
                                     <p>{success}</p>
                                     {createdBooking && (
