@@ -80,10 +80,13 @@ pipeline {
             steps {
                 ansiblePlaybook(
                     becomeUser: null,
+                    colorized: true,
                     credentialsId: 'localhost',
+                    disableHostKeyChecking: true,
                     installation: 'Ansible',
                     inventory: 'inventory',
-                    playbook: 'playbook.yml'
+                    playbook: 'playbook.yml',
+                    // sudoUser: null
                 )
             }
         }
