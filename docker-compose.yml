@@ -15,7 +15,7 @@ services:
   client:
     image: bambo0st/frontend:latest
     ports:
-      - "5173:5173"
+      - "5173:4173"
     environment:
       - VITE_API_URL=http://api:3000
       # I am not defining VITE_API_URL in env file, only in docker-compose environment
