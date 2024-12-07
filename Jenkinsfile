@@ -1,9 +1,92 @@
 pipeline {
+    environment {
+        backend = 'api' 
+        frontend = 'client' 
+        mongoImage = 'mongo:latest' 
+        mongoContainerName = 'mongodb' 
+        MONGO_PORT = '23017'
+        docker_image = ''
+    }
+    
     agent any
+
     stages {
-        stage('Print Hi') {
+        
+        stage('Stage 1: Pull MongoDB') {
             steps {
-                sh 'echo hi'
+                script {
+                    docker.withRegistry('', 'DockerHubCred') {
+                        docker.image("${mongoImage}").pull()
+                    }
+                }
+            }
+        }
+        
+        stage('Stage 2: Git Clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Bambo0st/CabPool'
+            }
+        }
+
+        // stage('Stage 3: Testing Frontend and Backend') {
+        //     steps {
+        //         dir('backend')
+        //         {
+        //             sh "docker build -t Bambo0st/backend-test -f Dockerfile.test ."
+        //             // sh "docker run menkchad/backend-test"
+        //         }
+        //         dir('frontend')
+        //         {
+        //             sh "docker build -t Bambo0st/frontend-test -f Dockerfile.test ."
+        //             // sh "docker run menkchad/frontend-test"
+        //         }
+        //     }
+        // }
+        
+        stage('Stage 4: Build Frontend and Backend') {
+            steps {
+                dir('backend')
+                {
+                    sh "docker build -t Bambo0st/backend ."
+                }
+                dir('frontend') 
+                {
+                    sh "docker build -t Bambo0st/frontend ."
+                }
+            }
+        }
+
+        stage('Stage 5: Push Backend and Frontend to DockerHub') {
+            steps {
+                script {
+                    docker.withRegistry('', 'DockerHubCred') {
+                        sh 'docker push Bambo0st/backend'
+                        sh 'docker push Bambo0st/frontend'
+                    }
+                }
+            }
+        }
+
+        stage('Stage 6: Clean') {
+            steps {
+                script {
+                    sh 'docker container prune -f'
+                    sh 'docker image prune -f'
+                    sh 'if [ -n "$(docker ps -aq)" ]; then docker rm -f $(docker ps -aq); fi'
+                    // sh 'if [ -n "$(docker images -aq)" ]; then docker rmi -f $(docker images -aq); fi'
+                }
+            }
+        }
+
+        stage('Stage 7: Ansible Deployment') {
+            steps {
+                ansiblePlaybook(
+                    becomeUser: null,
+                    credentialsId: 'localhost',
+                    installation: 'Ansible',
+                    inventory: 'inventory',
+                    playbook: 'deploy.yml'
+                )
             }
         }
     }
