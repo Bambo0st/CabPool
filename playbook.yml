@@ -5,11 +5,10 @@
     ansible_python_interpreter: /usr/bin/python3.8
   become: true
   tasks:
-    - name: Ensure Docker Compose is installed
-      package:
-        name: docker-compose
-        state: present
-
+    - name: Pull Docker image
+      docker_image:
+        name: bambo0st/calculator:latest
+        source: pull
     # - name: Copy docker-compose.yml to remote server
     #   copy:
     #     src: ./docker-compose.yml
