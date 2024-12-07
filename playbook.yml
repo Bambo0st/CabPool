@@ -1,4 +1,3 @@
----
 - name: Deploy Docker Containers with Docker Compose
   hosts: local
   vars:
@@ -9,13 +8,22 @@
         name: docker-compose
         state: present
 
+    - name: Check Docker Compose version
+      command: docker-compose --version
+      register: docker_compose_version
+      changed_when: false
+
+    - name: Print Docker Compose version
+      debug:
+        msg: "Docker Compose version is {{ docker_compose_version.stdout }}"
+
     - name: Copy docker-compose.yml to remote server
       copy:
         src: ./docker-compose.yml
         dest: /opt/cabpool/docker-compose.yml
 
     - name: Pull Docker images with Docker Compose
-      command: docker-compose -f docker-compose.yml pull
+      command: docker-compose -f /opt/cabpool/docker-compose.yml pull
 
     - name: Start the containers using Docker Compose
-      command: docker-compose -f docker-compose.yml up -d
+      command: docker-compose -f /opt/cabpool/docker-compose.yml up -d
