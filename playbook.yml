@@ -1,14 +1,8 @@
 ---
 - name: Deploy Docker Containers with Docker Compose
   hosts: localhosts
-  become: true
+  # become: true
   tasks:
-
-    - name: Ensure /home/adithya/cabpool directory exists
-      file:
-        path: /home/adithya/cabpool
-        state: directory
-        mode: '0755'
 
     - name: Ensure Docker Compose is installed
       package:
