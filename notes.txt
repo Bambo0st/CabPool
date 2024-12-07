@@ -1,3 +1,8 @@
 credentials :"include" specifies that you send the cookies from frontend to backed
 This you need to do when you are in cross origin
 But you need not mention this if you are using vite proxy as they will belong to same domain and automatically send cookies.
+
+
+docker ps
+docker logs <container-name>
+vite-preview default port is 4173
