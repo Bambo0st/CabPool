@@ -1,7 +1,5 @@
 pipeline {
     environment {
-        backend = 'api' 
-        frontend = 'client' 
         mongoImage = 'mongo:latest' 
         mongoContainerName = 'mongodb' 
         MONGO_PORT = '23017'
@@ -45,11 +43,11 @@ pipeline {
         
         stage('Stage 4: Build Frontend and Backend') {
             steps {
-                dir('backend')
+                dir('api')
                 {
                     sh "docker build -t bambo0st/backend ."
                 }
-                dir('frontend') 
+                dir('client') 
                 {
                     sh "docker build -t bambo0st/frontend ."
                 }
