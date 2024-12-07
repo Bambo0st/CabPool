@@ -79,7 +79,7 @@ pipeline {
         stage('Stage 6: Ansible Deployment') {
             steps {
                 ansiblePlaybook(
-                    becomeUser: null,
+                    becomeUser: adithya,
                     colorized: true,
                     credentialsId: 'localhost',
                     disableHostKeyChecking: true,
