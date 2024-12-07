@@ -1,11 +1,10 @@
 pipeline {
     agent any
+
     stages {
-        stage('Git Clone') {
+        stage('Print Hi') {
             steps {
-                script {
-                    sh 'git clone https://github.com/Bambo0st/CabPool.git'
-                }
+                sh 'echo hi'
             }
         }
     }
