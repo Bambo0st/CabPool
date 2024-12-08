@@ -28,11 +28,11 @@ pipeline {
 
         stage('Stage 3: Testing Frontend and Backend') {
             steps {
-                dir('backend')
+                dir('api')
                 {
-                    sh "docker build -t bambo0st/backend-test -f Dockerfile.test ."
+                    sh "docker build -t bambo0st/backend-test -f Dockerfile.test ." //Builds and runs the tests
                 }
-                dir('frontend')
+                dir('client')
                 {
                     sh "docker build -t bambo0st/frontend-test -f Dockerfile.test ."
                 }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 dir('api')
                 {
-                    sh "docker build -t bambo0st/backend ." //Builds and runs the testcases
+                    sh "docker build -t bambo0st/backend ." 
                 }
                 dir('client') 
                 {
