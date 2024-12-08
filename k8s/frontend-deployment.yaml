@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cabpool-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cabpool-frontend
+  template:
+    metadata:
+      labels:
+        app: cabpool-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: bambo0st/frontend:latest 
+          ports:
+            - containerPort: 4173
+          env:
+            - name: VITE_API_URL
+              value: "http://cabpool-backend:3000"
