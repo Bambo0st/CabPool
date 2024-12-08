@@ -9,5 +9,6 @@ spec:
     - protocol: TCP
       port: 4173
       targetPort: 4173
-  type: LoadBalancer
+      nodeport : 30000   
+  type: NodePort
 ---
