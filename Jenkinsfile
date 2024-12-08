@@ -26,26 +26,24 @@ pipeline {
             }
         }
 
-        // stage('Stage 3: Testing Frontend and Backend') {
-        //     steps {
-        //         dir('backend')
-        //         {
-        //             sh "docker build -t Bambo0st/backend-test -f Dockerfile.test ."
-        //             // sh "docker run menkchad/backend-test"
-        //         }
-        //         dir('frontend')
-        //         {
-        //             sh "docker build -t Bambo0st/frontend-test -f Dockerfile.test ."
-        //             // sh "docker run menkchad/frontend-test"
-        //         }
-        //     }
-        // }
+        stage('Stage 3: Testing Frontend and Backend') {
+            steps {
+                dir('backend')
+                {
+                    sh "docker build -t Bambo0st/backend-test -f Dockerfile.test ."
+                }
+                dir('frontend')
+                {
+                    sh "docker build -t Bambo0st/frontend-test -f Dockerfile.test ."
+                }
+            }
+        }
         
         stage('Stage 4: Build Frontend and Backend') {
             steps {
                 dir('api')
                 {
-                    sh "docker build -t bambo0st/backend ."
+                    sh "docker build -t bambo0st/backend ." //Builds and runs the testcases
                 }
                 dir('client') 
                 {
