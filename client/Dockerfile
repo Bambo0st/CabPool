@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Expose the frontend port
-EXPOSE 5173
+EXPOSE 4173
 
 # Use Vite's preview server to serve the app
 CMD ["npm", "run", "preview"]

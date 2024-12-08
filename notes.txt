@@ -1,4 +1,4 @@
-credentials :"include" specifies that you send the cookies from frontend to backed
+credentials :"include" specifies that you send the cookies from frontend to backend
 This you need to do when you are in cross origin
 But you need not mention this if you are using vite proxy as they will belong to same domain and automatically send cookies.
 
@@ -6,3 +6,6 @@ But you need not mention this if you are using vite proxy as they will belong to
 docker ps
 docker logs <container-name>
 vite-preview default port is 4173
+You need --host 0.0.0.0 because the client and backend are eaching running on their own containers and are communicating through service
+but if you want to see in the host system u have to set host 0.0.0.0 that means it wont listen only to localhost anymore and evey incoming connections with same port.
+The above is the case for Vite. whereas for backend they always listen on 0.0.0.0, thats why if you do localhost:3000 inside the host system you will get the backend page/
