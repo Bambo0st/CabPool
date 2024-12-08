@@ -15,3 +15,4 @@ If you add --host to vite run dev/start, then u can open your website from phone
 
 Jest:
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom
+minikube start --extra-config=apiserver.authorization-mode=RBAC
