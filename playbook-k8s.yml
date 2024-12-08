@@ -3,12 +3,13 @@
   hosts: all
   tasks:
 
-    - name: install pre-requisites
-      pip:
-        name:
-          - openshift
-          - pyyaml
-          - kubernetes 
+    # - name: install pre-requisites
+    #   pip:
+    #     name:
+    #       - openshift
+    #       - pyyaml
+    #       - kubernetes 
+
 
     - name: Apply Secrets
       kubernetes.core.k8s:
