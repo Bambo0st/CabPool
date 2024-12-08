@@ -10,6 +10,11 @@
     #       - pyyaml
     #       - kubernetes 
 
+    - name: Pull Docker images manually
+      command: docker pull {{ item }}
+      loop:
+        - bambo0st/backend:latest
+        - bambo0st/frontend:latest
 
     - name: Apply Secrets
       kubernetes.core.k8s:
