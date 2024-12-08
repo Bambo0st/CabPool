@@ -1,41 +1,42 @@
 ---
-- name: Deploy CabPool Application to Kubernetes
+- name: Deploying with Kubernetes
   hosts: all
-  vars:
-    ansible_python_interpreter: /usr/bin/python3.8
   tasks:
-    - name: Pull Docker images 
-      command: docker pull {{ item }}
-      loop:
-        - bambo0st/backend:latest
-        - bambo0st/frontend:latest
-    - name: Ensure kubectl is installed
-      package:
-        name: kubectl
+
+    - name: install pre-requisites
+      pip:
+        name:
+          - openshift
+          - pyyaml
+          - kubernetes 
+
+    - name: Apply Secrets
+      kubernetes.core.k8s:
         state: present
+        definition: "{{ lookup('file', './k8s/mern-backend-secret.yaml') | from_yaml }}"
 
-    - name: Apply Kubernetes YAML for secrets
-      command:
-        cmd: kubectl apply -f k8s/cabpool-secrets.yaml
+    - name: Create Frontend Deployment
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', './k8s/frontend-deployment.yaml') | from_yaml }}" 
 
-    - name: Apply Kubernetes YAML for backend deployment
-      command:
-        cmd: kubectl apply -f k8s/cabpool-backend-deployment.yaml
-
-    - name: Apply Kubernetes YAML for frontend deployment
-      command:
-        cmd: kubectl apply -f k8s/cabpool-frontend-deployment.yaml
-
-    - name: Apply Kubernetes YAML for backend service
-      command:
-        cmd: kubectl apply -f k8s/cabpool-backend-service.yaml
-
-    - name: Apply Kubernetes YAML for frontend service
-      command:
-        cmd: kubectl apply -f k8s/cabpool-frontend-service.yaml
-
-    - name: Apply Kubernetes YAML for ingress
-      command:
-        cmd: kubectl apply -f k8s/cabpool-ingress.yaml
+    - name: Create Frontend Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', './k8s/frontend-service.yaml') | from_yaml }}" 
 
 
+    - name: Create Backend Deployment
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', './k8s/backend-deployment.yaml') | from_yaml }}"
+
+    - name: Create Backend Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', './k8s/backend-service.yaml') | from_yaml }}"
+
+    - name: Create Ingress
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', './k8s/mern-ingress.yaml') | from_yaml }}" 
