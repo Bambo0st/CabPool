@@ -30,11 +30,11 @@ pipeline {
             steps {
                 dir('backend')
                 {
-                    sh "docker build -t Bambo0st/backend-test -f Dockerfile.test ."
+                    sh "docker build -t bambo0st/backend-test -f Dockerfile.test ."
                 }
                 dir('frontend')
                 {
-                    sh "docker build -t Bambo0st/frontend-test -f Dockerfile.test ."
+                    sh "docker build -t bambo0st/frontend-test -f Dockerfile.test ."
                 }
             }
         }
