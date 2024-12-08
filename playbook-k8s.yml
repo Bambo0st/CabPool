@@ -1,0 +1,35 @@
+---
+- name: Deploy CabPool Application to Kubernetes
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Ensure kubectl is installed
+      package:
+        name: kubectl
+        state: present
+
+    - name: Apply Kubernetes YAML for secrets
+      command:
+        cmd: kubectl apply -f k8s/cabpool-secrets.yaml
+
+    - name: Apply Kubernetes YAML for backend deployment
+      command:
+        cmd: kubectl apply -f k8s/cabpool-backend-deployment.yaml
+
+    - name: Apply Kubernetes YAML for frontend deployment
+      command:
+        cmd: kubectl apply -f k8s/cabpool-frontend-deployment.yaml
+
+    - name: Apply Kubernetes YAML for backend service
+      command:
+        cmd: kubectl apply -f k8s/cabpool-backend-service.yaml
+
+    - name: Apply Kubernetes YAML for frontend service
+      command:
+        cmd: kubectl apply -f k8s/cabpool-frontend-service.yaml
+
+    - name: Apply Kubernetes YAML for ingress
+      command:
+        cmd: kubectl apply -f k8s/cabpool-ingress.yaml
+
+

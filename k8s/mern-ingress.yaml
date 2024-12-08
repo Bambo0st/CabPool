@@ -15,4 +15,4 @@ spec:
           service:
             name: cabpool-frontend-service
             port:
-              number: 80
+              number: 4173

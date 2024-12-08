@@ -83,7 +83,8 @@ pipeline {
                     disableHostKeyChecking: true,
                     installation: 'Ansible',
                     inventory: 'inventory',
-                    playbook: 'playbook.yml',
+                    // playbook: 'playbook.yml',
+                    playbook: 'playbook-k8s.yml',
                     sudoUser: null
                 )
             }
