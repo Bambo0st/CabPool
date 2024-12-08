@@ -16,3 +16,6 @@ If you add --host to vite run dev/start, then u can open your website from phone
 Jest:
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom
 minikube start --extra-config=apiserver.authorization-mode=RBAC
+
+minikue didnt work, shifted to k3s
+the config file is diff for k3s,make sure to use appropriate export, have to give 644 permission for k3s config file
