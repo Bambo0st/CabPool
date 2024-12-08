@@ -8,14 +8,14 @@
         name: docker-compose
         state: present
 
-    - name: Check Docker Compose version
-      command: docker-compose --version
-      register: docker_compose_version
-      changed_when: false
+    # - name: Check Docker Compose version
+    #   command: docker-compose --version
+    #   register: docker_compose_version
+    #   changed_when: false
 
-    - name: Print Docker Compose version
-      debug:
-        msg: "Docker Compose version is {{ docker_compose_version.stdout }}"
+    # - name: Print Docker Compose version
+    #   debug:
+    #     msg: "Docker Compose version is {{ docker_compose_version.stdout }}"
 
     - name: Copy docker-compose.yml to remote server
       copy:
