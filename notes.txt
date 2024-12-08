@@ -11,3 +11,7 @@ but if you want to see in the host system u have to set host 0.0.0.0 that means 
 The above is the case for Vite. whereas for backend they always listen on 0.0.0.0, thats why if you do localhost:3000 inside the host system you will get the backend page/
 
 If you add --host to vite run dev/start, then u can open your website from phone too(use ur local ip address:port).
+
+
+Jest:
+npm install --save-dev jest @testing-library/react @testing-library/jest-dom
