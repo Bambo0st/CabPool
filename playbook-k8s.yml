@@ -10,6 +10,7 @@
     #       - pyyaml
     #       - kubernetes 
 
+
     - name: Pull Docker images manually
       command: docker pull {{ item }}
       loop:
