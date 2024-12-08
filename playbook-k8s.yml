@@ -18,31 +18,31 @@
 
 
     - name: Apply Secrets 
-      command: kubectl apply -f cabpool-secrets.yaml
+      command: kubectl apply -f cabpool-secrets.yaml --validate=false
       args:
         chdir: k8s
 
     - name: Apply Backend Deployment 
-      command: kubectl apply -f backend-deployment.yaml
+      command: kubectl apply -f backend-deployment.yaml --validate=false
       args:
         chdir: k8s
 
     - name: Apply Backend Service
-      command: kubectl apply -f backend-service.yaml
+      command: kubectl apply -f backend-service.yaml --validate=false
       args:
         chdir: k8s
 
     - name: Apply Frontend Deployment 
-      command: kubectl apply -f frontend-deployment.yaml
+      command: kubectl apply -f frontend-deployment.yaml --validate=false
       args:
         chdir: k8s
 
     - name: Apply Frontend Service 
-      command: kubectl apply -f frontend-service.yaml
+      command: kubectl apply -f frontend-service.yaml --validate=false
       args:
         chdir: k8s
 
     - name: Apply Ingress
-      command: kubectl apply -f mern-ingress.yaml
+      command: kubectl apply -f mern-ingress.yaml --validate=false
       args:
         chdir: k8s
