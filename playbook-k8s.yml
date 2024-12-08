@@ -1,8 +1,14 @@
 ---
 - name: Deploy CabPool Application to Kubernetes
-  hosts: localhost
-  become: true
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.8
   tasks:
+    - name: Pull Docker images 
+      command: docker pull {{ item }}
+      loop:
+        - bambo0st/backend:latest
+        - bambo0st/frontend:latest
     - name: Ensure kubectl is installed
       package:
         name: kubectl
