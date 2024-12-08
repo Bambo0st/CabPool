@@ -13,7 +13,7 @@
     - name: Apply Secrets
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', './k8s/mern-backend-secret.yaml') | from_yaml }}"
+        definition: "{{ lookup('file', './k8s/cabpool-secrets.yaml') | from_yaml }}"
 
     - name: Create Frontend Deployment
       kubernetes.core.k8s:
