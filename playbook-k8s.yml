@@ -32,6 +32,7 @@
     #   args:
     #     chdir: k8s
 
+
     - name: Apply Frontend Deployment 
       command: kubectl apply -f frontend-deployment.yaml --validate=false
       args:
