@@ -26,3 +26,5 @@ For getting Zorrin_VM_IP: run (ip a) and find the enp0s3.
 
 kubectl get pods
 kubectl logs <pod-name>
+
+kubectl get hpa
