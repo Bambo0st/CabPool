@@ -1,6 +1,6 @@
 ---
 - name: Deploying with Kubernetes
-  hosts: all
+  hosts: local
   tasks:
     # Uncomment if prerequisites are needed
     # - name: Install pre-requisites
