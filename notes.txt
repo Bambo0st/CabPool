@@ -31,3 +31,7 @@ kubectl get hpa
 
 
 sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+
+restart metrics-server : kubectl rollout restart deployment metrics-server -n kube-system
+
+kubectl describe hpa backend-hpa
