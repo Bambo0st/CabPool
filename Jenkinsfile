@@ -1,7 +1,7 @@
 pipeline {
-    // environment {
-
-    // }
+    environment {
+        VAULT_PASS = credentials('VAULT_PASSWORD') 
+    }
     
     agent any
 
@@ -60,19 +60,33 @@ pipeline {
             }
         }
 
+        // stage('Stage 6: Ansible Deployment') {
+        //     steps {
+        //         ansiblePlaybook(
+        //             becomeUser: null,
+        //             colorized: true,
+        //             // credentialsId: 'localhost',
+        //             disableHostKeyChecking: true,
+        //             installation: 'Ansible',
+        //             inventory: 'inventory',
+        //             // playbook: 'playbook.yml',
+        //             playbook: 'playbook-k8s.yml',
+        //             sudoUser: null
+        //         )
+        //     }
+        // }
+
         stage('Stage 6: Ansible Deployment') {
             steps {
-                ansiblePlaybook(
-                    becomeUser: null,
-                    colorized: true,
-                    // credentialsId: 'localhost',
-                    disableHostKeyChecking: true,
-                    installation: 'Ansible',
-                    inventory: 'inventory',
-                    // playbook: 'playbook.yml',
-                    playbook: 'playbook-k8s.yml',
-                    sudoUser: null
-                )
+                sh '''
+                    echo "$VAULT_PASS" > /tmp/vault_pass.txt
+
+                    chmod 600 /tmp/vault_pass.txt
+                    
+                    ansible-playbook -i inventory --vault-password-file /tmp/vault_pass.txt playbook-k8s.yml
+                    
+                    rm -f /tmp/vault_pass.txt
+                '''
             }
         }
     }

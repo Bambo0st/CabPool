@@ -1,2 +1,2 @@
 [local]
-localhost ansible_connection=local 
+localhost ansible_connection=local ansible_user=adithya ansible_password=@my_vault.yml
