@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: bambo0st/backend:latest 
+          image: bambo0st/backend:latest
           ports:
             - containerPort: 3000
           env:
@@ -28,3 +28,10 @@ spec:
                 secretKeyRef:
                   name: cabpool-secrets
                   key: jwt_secret
+          resources:
+            requests:
+              memory: "256Mi"  
+              cpu: "250m"      
+            limits:
+              memory: "512Mi"  
+              cpu: "500m"      
