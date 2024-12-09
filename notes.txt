@@ -19,3 +19,10 @@ minikube start --extra-config=apiserver.authorization-mode=RBAC
 
 minikue didnt work, shifted to k3s
 the config file is diff for k3s,make sure to use appropriate export, have to give 644 permission for k3s config file
+
+
+NodePort makes it such that I can access the website from Windows too. <Zorrin_VM_IP>:<NODE_PORT>. http://192.168.0.111:30000/
+For getting Zorrin_VM_IP: run (ip a) and find the enp0s3.
+
+kubectl get pods
+kubectl logs <pod-name>
