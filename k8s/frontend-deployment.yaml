@@ -15,6 +15,7 @@ spec:
       containers:
         - name: frontend
           image: bambo0st/frontend:latest
+          imagePullPolicy: Always  
           ports:
             - containerPort: 4173
           env:
@@ -26,4 +27,4 @@ spec:
               cpu: "250m"       
             limits:
               memory: "512Mi"   
-              cpu: "500m"       
+              cpu: "500m"
