@@ -13,7 +13,7 @@ const SignInPage = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/'); 
+      navigate('/');
     }
   }, [user, navigate]);
 
@@ -40,7 +40,7 @@ const SignInPage = () => {
         setUser(user);
 
         setSuccess('Login Successful!');
-        navigate('/'); 
+        navigate('/');
       } else {
         setError('Invalid credentials. Please try again.');
       }
@@ -54,7 +54,7 @@ const SignInPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">Sign In</h2>
+        <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">Sign In Laaa</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
