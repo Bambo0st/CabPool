@@ -41,3 +41,4 @@ spec:
   #   rollingUpdate:
   #     maxSurge: 1         # Allows 1 extra pod to be created above the desired count
   #     maxUnavailable: 1   # Ensures that no more than 1 pod will be unavailable during the update
+
