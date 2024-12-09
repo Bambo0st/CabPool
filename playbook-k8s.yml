@@ -51,3 +51,13 @@
       command: kubectl apply -f frontend-hpa.yaml
       args:
         chdir: k8s
+
+    - name: Trigger Rollout Restart for Backend
+      command: kubectl rollout restart deployment cabpool-backend
+      args:
+        chdir: k8s
+
+    - name: Trigger Rollout Restart for Frontend
+      command: kubectl rollout restart deployment cabpool-frontend
+      args:
+        chdir: k8s

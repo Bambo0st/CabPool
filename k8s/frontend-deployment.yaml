@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cabpool-frontend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: cabpool-frontend
@@ -28,8 +28,8 @@ spec:
             limits:
               memory: "512Mi"   
               cpu: "500m"
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1         # Allows 1 extra pod to be created above the desired count
-      maxUnavailable: 1   # Ensures that no more than 1 pod will be unavailable during the update
+  # strategy:
+  #   type: RollingUpdate
+  #   rollingUpdate:
+  #     maxSurge: 1         # Allows 1 extra pod to be created above the desired count
+  #     maxUnavailable: 1   # Ensures that no more than 1 pod will be unavailable during the update
