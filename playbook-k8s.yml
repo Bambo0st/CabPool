@@ -9,54 +9,70 @@
     #       - openshift
     #       - pyyaml
     #       - kubernetes
-    - name: Gather facts
-      setup:
-    - name: Print current user
-      debug:
-        var: ansible_user
+    # - name: Gather facts
+    #   setup:
+    # - name: Print current user
+    #   debug:
+    #     var: ansible_user
 
-    # - name: Pull Docker images manually
-    #   command: docker pull {{ item }}
-    #   loop:
-    #     - bambo0st/backend:latest
-    #     - bambo0st/frontend:latest
+    - name: Pull Docker images manually
+      command: docker pull {{ item }}
+      loop:
+        - bambo0st/backend:latest
+        - bambo0st/frontend:latest
 
-    # - name: Apply Secrets
-    #   command: kubectl apply -f cabpool-secrets.yaml
-    #   args:
-    #     chdir: k8s
+    - name: Apply Secrets
+      command: kubectl apply -f cabpool-secrets.yaml
+      args:
+        chdir: k8s
+      environment:
+        KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
 
-    # - name: Apply Backend Deployment
-    #   command: kubectl apply -f backend-deployment.yaml
-    #   args:
-    #     chdir: k8s
+    - name: Apply Backend Deployment
+      command: kubectl apply -f backend-deployment.yaml
+      args:
+        chdir: k8s
+      environment:
+        KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
 
-    # - name: Apply Backend Service
-    #   command: kubectl apply -f backend-service.yaml
-    #   args:
-    #     chdir: k8s
+    - name: Apply Backend Service
+      command: kubectl apply -f backend-service.yaml
+      args:
+        chdir: k8s
+      environment:
+        KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
 
-    # - name: Apply Frontend Deployment
-    #   command: kubectl apply -f frontend-deployment.yaml
-    #   args:
-    #     chdir: k8s
+    - name: Apply Frontend Deployment
+      command: kubectl apply -f frontend-deployment.yaml
+      args:
+        chdir: k8s
+      environment:
+        KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
 
-    # - name: Apply Frontend Service
-    #   command: kubectl apply -f frontend-service.yaml
-    #   args:
-    #     chdir: k8s
+    - name: Apply Frontend Service
+      command: kubectl apply -f frontend-service.yaml
+      args:
+        chdir: k8s
+      environment:
+        KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
 
-    # - name: Apply Ingress
-    #   command: kubectl apply -f mern-ingress.yaml
-    #   args:
-    #     chdir: k8s
+    - name: Apply Ingress
+      command: kubectl apply -f mern-ingress.yaml
+      args:
+        chdir: k8s
+      environment:
+        KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
 
-    # - name: Apply Backend HPA
-    #   command: kubectl apply -f backend-hpa.yaml
-    #   args:
-    #     chdir: k8s
+    - name: Apply Backend HPA
+      command: kubectl apply -f backend-hpa.yaml
+      args:
+        chdir: k8s
+      environment:
+        KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
 
-    # - name: Apply Frontend HPA
-    #   command: kubectl apply -f frontend-hpa.yaml
-    #   args:
-    #     chdir: k8s
+    - name: Apply Frontend HPA
+      command: kubectl apply -f frontend-hpa.yaml
+      args:
+        chdir: k8s
+      environment:
+        KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
