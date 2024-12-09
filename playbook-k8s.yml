@@ -3,7 +3,7 @@
   hosts: local
   
   roles:
-    - docker  # Ensure the role 'docker' exists in the roles directory
+    - docker  
   
   tasks:
     - name: Pull Docker images manually
