@@ -79,13 +79,13 @@ pipeline {
         stage('Stage 6: Ansible Deployment') {
             steps {
                 sh '''
-                    echo "$VAULT_PASS" > /tmp/vault_pass.txt
+                    echo "$VAULT_PASS" > /tmp/temp.txt
 
-                    chmod 600 /tmp/vault_pass.txt
+                    chmod 600 /tmp/temp.txt
                     
-                    ansible-playbook -i inventory.ini --vault-password-file /tmp/vault_pass.txt playbook.yml
+                    ansible-playbook -i inventory.ini --vault-password-file /tmp/temp.txt playbook-k8s.yml
                     
-                    rm -f /tmp/vault_pass.txt
+                    rm -f /tmp/temp.txt
                 '''
             }
         }

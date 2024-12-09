@@ -2,19 +2,9 @@
 - name: Deploying with Kubernetes
   hosts: local
   tasks:
-    # Uncomment if prerequisites are needed
-    # - name: Install pre-requisites
-    #   pip:
-    #     name:
-    #       - openshift
-    #       - pyyaml
-    #       - kubernetes
-    # - name: Gather facts
-    #   setup:
-    # - name: Print current user
-    #   debug:
-    #     var: ansible_user
-
+    roles: 
+        -docker
+  
     - name: Pull Docker images manually
       command: docker pull {{ item }}
       loop:
