@@ -1,9 +1,10 @@
 ---
 - name: Deploying with Kubernetes
   hosts: local
-  tasks:
-    roles: 
+  
+  roles: 
         -docker
+  tasks:
   
     - name: Pull Docker images manually
       command: docker pull {{ item }}
