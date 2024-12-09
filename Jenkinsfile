@@ -83,7 +83,7 @@ pipeline {
 
                     chmod 600 /tmp/vault_pass.txt
                     
-                    ansible-playbook -i inventory --vault-password-file /tmp/vault_pass.txt playbook-k8s.yml
+                    ansible-playbook -i inventory.ini --vault-password-file /tmp/vault_pass.txt playbook-k8s.yml
                     
                     rm -f /tmp/vault_pass.txt
                 '''
