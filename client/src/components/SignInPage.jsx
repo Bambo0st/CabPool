@@ -12,7 +12,7 @@ const SignInPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (user) { 
       navigate('/');
     }
   }, [user, navigate]);
