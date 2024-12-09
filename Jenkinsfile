@@ -66,10 +66,9 @@ pipeline {
         stage('Stage 6: Clean') {
             steps {
                 script {
-                    sh 'docker container prune -f'
-                    sh 'docker image prune -f'
-                    sh 'if [ -n "$(docker ps -aq)" ]; then docker rm -f $(docker ps -aq); fi'
-                    // sh 'if [ -n "$(docker images -aq)" ]; then docker rmi -f $(docker images -aq); fi'
+                sh "docker rmi bambo0st/backend:latest || true"
+                sh "docker rmi bambo0st/frontend:latest || true"
+                // sh 'docker rmi $(docker images --filter "dangling=true" --filter "reference=bambo0st/backend:latest" -q)||true'
                 }
             }
         }
