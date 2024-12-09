@@ -14,9 +14,16 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: bambo0st/frontend:latest 
+          image: bambo0st/frontend:latest
           ports:
             - containerPort: 4173
           env:
             - name: VITE_API_URL
               value: "http://cabpool-backend-service:3000"
+          resources:
+            requests:
+              memory: "256Mi"   
+              cpu: "250m"       
+            limits:
+              memory: "512Mi"   
+              cpu: "500m"       

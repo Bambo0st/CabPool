@@ -9,11 +9,11 @@
     #       - openshift
     #       - pyyaml
     #       - kubernetes
-    - name: Gather facts
-      setup:
-    - name: Print current user
-      debug:
-        var: ansible_user
+    # - name: Gather facts
+    #   setup:
+    # - name: Print current user
+    #   debug:
+    #     var: ansible_user
 
     - name: Pull Docker images manually
       command: docker pull {{ item }}
