@@ -1,32 +1,19 @@
 pipeline {
     environment {
-        mongoImage = 'mongo:latest' 
-        mongoContainerName = 'mongodb' 
-        MONGO_PORT = '23017'
-        docker_image = ''
+
     }
     
     agent any
 
     stages {
         
-        // stage('Stage 1: Pull MongoDB') {
-        //     steps {
-        //         script {
-        //             docker.withRegistry('', 'DockerHubCred') {
-        //                 docker.image("${mongoImage}").pull()
-        //             }
-        //         }
-        //     }
-        // }
-        
-        stage('Stage 2: Git Clone') {
+        stage('Stage 1: Git Clone') {
             steps {
                 git branch: 'main', url: 'https://github.com/Bambo0st/CabPool'
             }
         }
 
-        stage('Stage 3: Testing Frontend and Backend') {
+        stage('Stage 2: Testing Frontend and Backend') {
             steps {
                 dir('api')
                 {
@@ -39,7 +26,7 @@ pipeline {
             }
         }
         
-        stage('Stage 4: Build Frontend and Backend') {
+        stage('Stage 3: Build Frontend and Backend') {
             steps {
                 dir('api')
                 {
@@ -52,7 +39,7 @@ pipeline {
             }
         }
 
-        stage('Stage 5: Push Backend and Frontend to DockerHub') {
+        stage('Stage 4: Push Backend and Frontend to DockerHub') {
             steps {
                 script {
                     docker.withRegistry('', 'DockerHubCred') {
@@ -63,7 +50,7 @@ pipeline {
             }
         }
 
-        stage('Stage 6: Clean') {
+        stage('Stage 5: Clean') {
             steps {
                 script {
                 sh "docker rmi bambo0st/backend:latest || true"
@@ -73,12 +60,12 @@ pipeline {
             }
         }
 
-        stage('Stage 7: Ansible Deployment') {
+        stage('Stage 6: Ansible Deployment') {
             steps {
                 ansiblePlaybook(
                     becomeUser: null,
                     colorized: true,
-                    credentialsId: 'localhost',
+                    // credentialsId: 'localhost',
                     disableHostKeyChecking: true,
                     installation: 'Ansible',
                     inventory: 'inventory',
