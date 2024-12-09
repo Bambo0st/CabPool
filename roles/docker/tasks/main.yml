@@ -6,12 +6,12 @@
     name: docker.io
     state: present
     update_cache: yes
-  # become: true
+  become: true
 
 - name: Ensure Docker service is started and enabled
   service:
     name: docker
     state: started
     enabled: true
-  # become: true
+  become: true
 
