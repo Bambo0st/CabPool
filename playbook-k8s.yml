@@ -70,6 +70,8 @@
       environment:
         KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
 
+
+
     - name: Apply Frontend HPA
       command: kubectl apply -f frontend-hpa.yaml
       args:
