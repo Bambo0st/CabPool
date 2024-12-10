@@ -2,6 +2,7 @@ pipeline {
     environment {
         VAULT_PASS = credentials('VAULT_PASSWORD') 
     }
+    
     agent any
 
     stages {
