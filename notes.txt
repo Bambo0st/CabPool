@@ -38,3 +38,16 @@ kubectl describe hpa backend-hpa
 VAULT_PASS: vault@123
 
 ~/prometheus-2.48.0.linux-amd64$ ./prometheus --config.file=prometheus.yml
+
+Grafana:
+http://localhost:3000/dashboards
+
+Metrics:
+http://localhost:3100/metrics
+
+Prometheus:
+http://localhost:9090
+
+stored in /desktop/spe in zorrinOs
+kubectl apply -f promtail-config.yaml
+kubectl apply -f promtail.yaml
