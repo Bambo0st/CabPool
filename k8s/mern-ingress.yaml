@@ -6,13 +6,20 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: localhost 
+  - host: localhost  # You can change this for production use
     http:
       paths:
-      - path: /
+      - path: /  # This route will go to the frontend service
         pathType: Prefix
         backend:
           service:
             name: cabpool-frontend-service
             port:
               number: 4173
+      - path: /api  
+        pathType: Prefix
+        backend:
+          service:
+            name: cabpool-backend-service  
+            port:
+              number: 8000  
