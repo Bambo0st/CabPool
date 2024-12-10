@@ -3,7 +3,7 @@ services:
   api:
     image: bambo0st/backend:latest
     ports:
-      - "3000:3000"
+      - "8000:8000"
     environment:
       - MONGO_URL=mongodb+srv://adithya:adithya123@cabpoolcluster.2vzp6.mongodb.net/
       - JWT_SECRET=THIS IS THE SECRET
@@ -17,7 +17,7 @@ services:
     ports:
       - "4173:4173"
     environment:
-      - VITE_API_URL=http://api:3000
+      - VITE_API_URL=http://api:8000
       # I am not defining VITE_API_URL in env file, only in docker-compose environment
     networks:
       - cab-pool-network

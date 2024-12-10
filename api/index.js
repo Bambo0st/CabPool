@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cookieParser()); //this for storing jwt token 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 // Middleware
 
@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log("Server listening on port 3000");
+    console.log("Server listening on port: ", PORT);
 })
 
 export default app;

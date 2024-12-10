@@ -20,7 +20,7 @@ spec:
             - containerPort: 4173
           env:
             - name: VITE_API_URL
-              value: "http://cabpool-backend-service:3000"
+              value: "http://cabpool-backend-service:8000"
           resources:
             requests:
               memory: "256Mi"   
