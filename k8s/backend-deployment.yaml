@@ -36,4 +36,9 @@ spec:
             limits:
               cpu: "500m"
               memory: "512Mi"
-
+          volumeMounts:
+            - name: log-volume
+              mountPath: /api/logs
+      volumes:
+        - name: log-volume
+          emptyDir: {}

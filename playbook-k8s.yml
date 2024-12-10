@@ -2,8 +2,8 @@
 - name: Deploying with Kubernetes
   hosts: local
   
-  roles:
-    - docker  
+  # roles:
+  #   - docker  
   
   tasks:
     - name: Pull Docker images manually
