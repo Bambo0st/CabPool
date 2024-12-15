@@ -48,7 +48,6 @@ pipeline {
                 script {
                 sh "docker rmi bambo0st/backend:latest || true"
                 sh "docker rmi bambo0st/frontend:latest || true"
-                // sh 'docker rmi $(docker images --filter "dangling=true" --filter "reference=bambo0st/backend:latest" -q)||true'
                 }
             }
         }

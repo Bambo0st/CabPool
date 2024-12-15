@@ -52,3 +52,14 @@ stored in /desktop/spe in zorrinOs
 kubectl apply -f promtail-config.yaml
 kubectl apply -f promtail.yaml
 
+
+// sh 'docker rmi $(docker images --filter "dangling=true" --filter "reference=bambo0st/backend:latest" -q)||true'
+
+
+kubectl get secret loki-grafana -n monitoring -o jsonpath="{.data.admin-password}" | base64 --decode
+
+kubectl port-forward --namespace monitoring svc/loki-prometheus-server 9090:80
+
+kubectl port-forward --namespace monitoring service/loki-grafana 3000:80
+
+kubectl port-forward svc/loki -n monitoring 3100:3100
