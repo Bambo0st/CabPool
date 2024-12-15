@@ -7,8 +7,7 @@ services:
     environment:
       - MONGO_URL=mongodb+srv://adithya:adithya123@cabpoolcluster.2vzp6.mongodb.net/
       - JWT_SECRET=THIS IS THE SECRET
-    # depends_on:
-    #   - mongodb
+
     networks:
       - cab-pool-network
 
@@ -21,13 +20,6 @@ services:
       # I am not defining VITE_API_URL in env file, only in docker-compose environment
     networks:
       - cab-pool-network
-  # mongodb:
-  #   image: mongo:latest
-  #   container_name: mongodb
-  #   ports:
-  #     - "23017:27017"
-  #   networks:
-  #     - cab-pool-network
 
 networks:
   cab-pool-network:

@@ -13,8 +13,8 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Expose the backend port
-EXPOSE 3000
+# Expose the frontend port
+EXPOSE 4173
 
 # Test
 CMD ["npm", "test"]
